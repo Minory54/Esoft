@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="EsoftModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="agents">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MiddleName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DealShare" Type="Int32" />
+    <NavigationProperty Name="demands" Relationship="Self.FK_demands_agents" FromRole="agents" ToRole="demands" />
+    <NavigationProperty Name="supplies" Relationship="Self.FK_supplies_agents" FromRole="agents" ToRole="supplies" />
+  </EntityType>
+  <EntityType Name="clients">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="MiddleName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="demands" Relationship="Self.FK_demands_clients" FromRole="clients" ToRole="demands" />
+    <NavigationProperty Name="supplies" Relationship="Self.FK_supplies_clients" FromRole="clients" ToRole="supplies" />
+  </EntityType>
+  <EntityType Name="demands">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Address_City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Address_Street" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Address_House" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Address_Number" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MinPrice" Type="Int32" />
+    <Property Name="MaxPrice" Type="Int32" />
+    <Property Name="AgentId" Type="Int32" Nullable="false" />
+    <Property Name="ClientId" Type="Int32" Nullable="false" />
+    <Property Name="MinArea" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MaxArea" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MinRooms" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MaxRooms" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MinFloor" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MaxFloor" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="TypeId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="agents" Relationship="Self.FK_demands_agents" FromRole="demands" ToRole="agents" />
+    <NavigationProperty Name="clients" Relationship="Self.FK_demands_clients" FromRole="demands" ToRole="clients" />
+    <NavigationProperty Name="typeProperty" Relationship="Self.FK_demands_typeProperty" FromRole="demands" ToRole="typeProperty" />
+  </EntityType>
+  <EntityType Name="districts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="area" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="property">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Address_City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Address_Street" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Address_House" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Coordinate_latitude" Type="Double" />
+    <Property Name="Coordinate_longitude" Type="Double" />
+    <Property Name="TotalArea" Type="Double" />
+    <Property Name="Rooms" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Floor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TypeId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="typeProperty" Relationship="Self.FK_property_typeProperty" FromRole="property" ToRole="typeProperty" />
+    <NavigationProperty Name="supplies" Relationship="Self.FK_supplies_property" FromRole="property" ToRole="supplies" />
+  </EntityType>
+  <EntityType Name="supplies">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Price" Type="Int32" Nullable="false" />
+    <Property Name="AgentId" Type="Int32" Nullable="false" />
+    <Property Name="ClientId" Type="Int32" Nullable="false" />
+    <Property Name="RealEstateId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="agents" Relationship="Self.FK_supplies_agents" FromRole="supplies" ToRole="agents" />
+    <NavigationProperty Name="clients" Relationship="Self.FK_supplies_clients" FromRole="supplies" ToRole="clients" />
+    <NavigationProperty Name="property" Relationship="Self.FK_supplies_property" FromRole="supplies" ToRole="property" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="typeProperty">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="demands" Relationship="Self.FK_demands_typeProperty" FromRole="typeProperty" ToRole="demands" />
+    <NavigationProperty Name="property" Relationship="Self.FK_property_typeProperty" FromRole="typeProperty" ToRole="property" />
+  </EntityType>
+  <Association Name="FK_demands_agents">
+    <End Role="agents" Type="Self.agents" Multiplicity="1" />
+    <End Role="demands" Type="Self.demands" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="agents">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="demands">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_supplies_agents">
+    <End Role="agents" Type="Self.agents" Multiplicity="1" />
+    <End Role="supplies" Type="Self.supplies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="agents">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="supplies">
+        <PropertyRef Name="AgentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_demands_clients">
+    <End Role="clients" Type="Self.clients" Multiplicity="1" />
+    <End Role="demands" Type="Self.demands" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="demands">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_supplies_clients">
+    <End Role="clients" Type="Self.clients" Multiplicity="1" />
+    <End Role="supplies" Type="Self.supplies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="clients">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="supplies">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_demands_typeProperty">
+    <End Role="typeProperty" Type="Self.typeProperty" Multiplicity="1" />
+    <End Role="demands" Type="Self.demands" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typeProperty">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="demands">
+        <PropertyRef Name="TypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_property_typeProperty">
+    <End Role="typeProperty" Type="Self.typeProperty" Multiplicity="1" />
+    <End Role="property" Type="Self.property" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="typeProperty">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="property">
+        <PropertyRef Name="TypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_supplies_property">
+    <End Role="property" Type="Self.property" Multiplicity="1" />
+    <End Role="supplies" Type="Self.supplies" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="property">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="supplies">
+        <PropertyRef Name="RealEstateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="EsoftEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="agents" EntityType="Self.agents" />
+    <EntitySet Name="clients" EntityType="Self.clients" />
+    <EntitySet Name="demands" EntityType="Self.demands" />
+    <EntitySet Name="districts" EntityType="Self.districts" />
+    <EntitySet Name="property" EntityType="Self.property" />
+    <EntitySet Name="supplies" EntityType="Self.supplies" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="typeProperty" EntityType="Self.typeProperty" />
+    <AssociationSet Name="FK_demands_agents" Association="Self.FK_demands_agents">
+      <End Role="agents" EntitySet="agents" />
+      <End Role="demands" EntitySet="demands" />
+    </AssociationSet>
+    <AssociationSet Name="FK_supplies_agents" Association="Self.FK_supplies_agents">
+      <End Role="agents" EntitySet="agents" />
+      <End Role="supplies" EntitySet="supplies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_demands_clients" Association="Self.FK_demands_clients">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="demands" EntitySet="demands" />
+    </AssociationSet>
+    <AssociationSet Name="FK_supplies_clients" Association="Self.FK_supplies_clients">
+      <End Role="clients" EntitySet="clients" />
+      <End Role="supplies" EntitySet="supplies" />
+    </AssociationSet>
+    <AssociationSet Name="FK_demands_typeProperty" Association="Self.FK_demands_typeProperty">
+      <End Role="typeProperty" EntitySet="typeProperty" />
+      <End Role="demands" EntitySet="demands" />
+    </AssociationSet>
+    <AssociationSet Name="FK_property_typeProperty" Association="Self.FK_property_typeProperty">
+      <End Role="typeProperty" EntitySet="typeProperty" />
+      <End Role="property" EntitySet="property" />
+    </AssociationSet>
+    <AssociationSet Name="FK_supplies_property" Association="Self.FK_supplies_property">
+      <End Role="property" EntitySet="property" />
+      <End Role="supplies" EntitySet="supplies" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
